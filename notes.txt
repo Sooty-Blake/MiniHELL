@@ -1,0 +1,10 @@
+Program trees for:
+process_input(...)
+check_for_redirect(...)
+
+Using libft functions:
+ft_strdup
+ft_split
+ft_strjoin
+ft_strlen
+ft_strlencpy
