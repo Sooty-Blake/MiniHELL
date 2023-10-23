@@ -10,3 +10,5 @@ ft_strlen
 ft_strlencpy
 ft_putstr_fd
 ft_putendl_fd
+ft_is_upper
+ft_is_digit
