@@ -13,3 +13,4 @@ ft_putendl_fd
 ft_is_upper
 ft_is_digit
 ft_strrchr
+ft_itoa
