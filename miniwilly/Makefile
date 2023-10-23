@@ -1,21 +1,38 @@
-NAME = exe
+NAME = minishell
 
-COMPILE = gcc
+LIBFT = libft/libft.a
 
-FLAGS =
+HEADER = ./includes/
 
-SRCS = *.c
+CC = gcc
 
-LIBS = -lreadline
+
+FLAGS = 
+
+SRCS = srcs/*.c \
+
+OBJECTS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME):
-	$(COMPILE) $(FLAGS) $(SRCS) -o $(NAME) $(LIBS)
+$(NAME): $(OBJS) $(LIBFT)
+	@$(CC) $(FLAGS) $(SRCS) $(LIBFT) -I $(HEADER) -o $(NAME) -L /usr/local/opt/readline/lib -lreadline
+	@echo Minishell has been made.
+
+$(LIBFT):
+	@make -C ./libft
 
 clean:
-	rm -f $(NAME)
+	@rm -f $(OBJECTS)
+	@make clean -C ./libft
+	@echo Clean.
 
-re: clean all
+fclean: clean
+	@rm -f $(NAME)
+	@make fclean -C ./libft
+	@echo Very clean.
 
-.PHONY: all clean re
+
+re: fclean all
+
+.PHONY: all clean fclean re
