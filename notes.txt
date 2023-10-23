@@ -8,3 +8,5 @@ ft_split
 ft_strjoin
 ft_strlen
 ft_strlencpy
+ft_putstr_fd
+ft_putendl_fd
