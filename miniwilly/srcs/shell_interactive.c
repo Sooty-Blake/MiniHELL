@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   shell_interactive.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qubemap <qubemap@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wrichard <wrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 14:51:52 by wrichard          #+#    #+#             */
-/*   Updated: 2023/10/23 16:11:17 by qubemap          ###   ########.fr       */
+/*   Updated: 2023/11/24 14:51:56 by wrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 int lsh_launch(char **args)
 {
@@ -95,6 +96,12 @@ void	ft_shell_interactive(void)
 	{
 		ft_prompt();
 		line = readline("");
+
+		if (line == NULL) /* ctr + d*/
+		{
+			printf("%sExiting ฅ^-_-^ฅ%s\n", RED, DEFAULT);
+			return ;
+		}
 		args = ft_split(line, ' ');
 		i = 0;
 		while (args[i])
@@ -102,8 +109,6 @@ void	ft_shell_interactive(void)
 			printf("%s\n", args[i]);
 			i++;
 		}
-		if (line == NULL) /* ctr + d*/
-			return ;
 		lsh_execute(args);
 		free(line);
 		free(args);
