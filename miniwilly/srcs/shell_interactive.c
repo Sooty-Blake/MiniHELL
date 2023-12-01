@@ -6,55 +6,48 @@
 /*   By: wrichard <wrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 14:51:52 by wrichard          #+#    #+#             */
-/*   Updated: 2023/11/24 14:51:56 by wrichard         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:29:41 by wrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int lsh_launch(char **args)
+void ft_child_execute(pid_t pid, char **args)
 {
-  pid_t pid;
-  pid_t wpid;
-  int status;
-
-  pid = fork();
-  if (pid == 0) {
-    // Child process
-    if (execvp(args[0], args) == -1) {
-      perror("lsh");
-    }
-    exit(EXIT_FAILURE);
-  } else if (pid < 0) {
-    // Error forking
-    perror("lsh");
-  } else {
-    // Parent process
-    do {
-      wpid = waitpid(pid, &status, WUNTRACED);
-    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-  }
-
-  return 1;
+	if (execvp(args[0], args) == -1)
+	{
+		exit(EXIT_FAILURE);
+	}
 }
 
-int lsh_execute(char **args)
+int ft_execute(char **args)
 {
-  //int i;
+	pid_t	pid;
+	int		status;
 
-  if (args[0] == NULL) {
-    // An empty command was entered.
-    return 1;
-  }
-/*
-  for (i = 0; i < lsh_num_builtins(); i++) {
-    if (strcmp(args[0], builtin_str[i]) == 0) {
-      return (*builtin_func[i])(args);
-    }
-  }
-*/
-  return lsh_launch(args);
+	pid = fork();
+	if (pid == 0)
+	{
+		ft_child_execute(pid, args);
+	}
+	else
+	{
+		if (waitpid(pid, &status, 0) == -1)
+		{
+			ft_error("waitpid");
+			return (EXIT_FAILURE);
+		}
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	ft_arg_handler(char **args)
+{
+	if (args[0] == NULL)
+	{
+		return (1);
+	}
+	return (ft_execute(args));
 }
 
 void	ft_prompt(void)
@@ -89,15 +82,13 @@ void	ft_shell_interactive(void)
 {
 	char	*line;
 	char	**args;
-	//int		status;
-	int i;
+	int		i;
 
 	while (1)
 	{
 		ft_prompt();
 		line = readline("");
-
-		if (line == NULL) /* ctr + d*/
+		if (line == NULL)
 		{
 			printf("%sExiting ฅ^-_-^ฅ%s\n", RED, DEFAULT);
 			return ;
@@ -109,7 +100,7 @@ void	ft_shell_interactive(void)
 			printf("%s\n", args[i]);
 			i++;
 		}
-		lsh_execute(args);
+		ft_arg_handler(args);
 		free(line);
 		free(args);
 	}

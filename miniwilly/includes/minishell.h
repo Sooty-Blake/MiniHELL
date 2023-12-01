@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qubemap <qubemap@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wrichard <wrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 14:51:45 by wrichard          #+#    #+#             */
-/*   Updated: 2023/10/23 16:05:35 by qubemap          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:18:36 by wrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include <sys/wait.h>
 
 void	ft_shell_interactive(void);
+void	ft_error(char *str);
 
 //utils
 size_t	ft_strlen(const char *s);

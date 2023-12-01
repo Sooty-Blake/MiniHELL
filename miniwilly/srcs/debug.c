@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wrichard <wrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 14:51:32 by wrichard          #+#    #+#             */
-/*   Updated: 2023/10/20 16:24:08 by wrichard         ###   ########.fr       */
+/*   Created: 2023/12/01 17:13:20 by wrichard          #+#    #+#             */
+/*   Updated: 2023/12/01 17:15:52 by wrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+void ft_error(char *str)
 {
-	if (isatty(STDIN_FILENO) == 1)
-	{
-		ft_shell_interactive();
-	}
+	printf("%s%s%s\n", RED, str, DEFAULT);
 }
